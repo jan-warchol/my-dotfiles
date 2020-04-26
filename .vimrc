@@ -140,14 +140,16 @@ Plug 'tpope/vim-repeat'  " required by vim-easyclip (and useful on its own)
 Plug 'junegunn/vim-easy-align'  " better than godlygeek/tabular
 
 " Make register behaviour more resonable
-Plug 'svermeulen/vim-easyclip'  " requires repeat.vim
+" Plug 'svermeulen/vim-yoink'
+Plug 'svermeulen/vim-cutlass'
+Plug 'svermeulen/vim-subversive'
 call plug#end()
 
 
 
 " SANE CLIPBOARD =======================================================
 
-" Requires svermeulen/vim-easyclip plugin and +clipboard. See also
+" Requires svermeulen/vim-cutlass plugin and +clipboard. See also
 " http://vimcasts.org/blog/2013/11/registers-the-good-the-bad-and-the-ugly-parts/
 
 " Automatically use system-wide clipboard (the one tied to Ctrl-C/X/V; use
@@ -159,16 +161,18 @@ autocmd VimLeave * call system("xsel -ib", getreg('+'))
 noremap <silent> <C-z> :call system("xsel -ib", getreg('+'))<CR><C-z>
 
 " Map s to substitute (replacement motion, no need for extra register)
-let g:EasyClipUseSubstituteDefaults = 1
+nmap s <plug>(SubversiveSubstitute)
+nmap ss <plug>(SubversiveSubstituteLine)
+nmap S <plug>(SubversiveSubstituteToEndOfLine)
 
-" Restore d as cutting operator. This is not ideal (I still don't have a
+" Use d as cutting operator. This is not ideal (I still don't have a
 " convenient way to delete without putting in clipboard), but the alternative
 " (replacing one of Vim's default mappings, like x or m, or using a longer
 " mapping, like <Leader>d) sounds worse.
-let g:EasyClipUseCutDefaults = 0
-nmap d <Plug>MoveMotionPlug
-xmap d <Plug>MoveMotionXPlug
-nmap dd <Plug>MoveMotionLinePlug
+nnoremap d d
+xnoremap d d
+nnoremap dd dd
+nnoremap D D
 
 
 
