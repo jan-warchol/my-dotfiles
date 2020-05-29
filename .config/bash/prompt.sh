@@ -69,12 +69,20 @@ check_ssh_keys() {
     echo "(no ssh agent) "
   fi
 }
+
+aws_profile(){
+  if [ -n "$AWS_PROFILE" ]; then
+    echo -e "${BR_RED}AWS:${AWS_PROFILE} "
+  fi
+}
+
 # set defaults so that we don't have uninitialized variables
 : ${GIT_PS1_FMT:=""}
 
 # wrap PS1_USER_COLOR inside an echo call so that it will be evaluated on every command
 # (so that I can dynamically change the color just by changing the variable).
 export PS1="\
+$(aws_profile)\
 \$(echo -e \${PS1_HOST_COLOR})${PS1_HOST_INFO}\
 \$(echo -e \${PS1_SSH_KEY_COLOR})\$(check_ssh_keys)\
 \$(echo -e \${PS1_PATH_COLOR})\w\
