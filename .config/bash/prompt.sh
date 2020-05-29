@@ -32,16 +32,26 @@ PS1_SSH_KEY_COLOR="${BLUE}"
 # Using \[ and \] around color codes in prompt is necessary to prevent strange issues!
 PS1_RESET_COLOR="\[${RESET_COLOR}\]"
 
-# Display hostname only when I'm logged in via ssh - makes it very clear
-if [ -n "$SSH_CONNECTION" ]; then
-    PS1_HOST_INFO='\u@\h '
-fi
 
-# warn when logged in as root user
-if [ $EUID = 0 ]; then
-    PS1_HOST_COLOR="${RED}"
-    PS1_HOST_INFO='\u '
-fi
+host_info() {
+  echo -en ${PS1_HOST_COLOR}
+  # Display hostname only when I'm logged in via ssh - makes it very clear
+  if [ -n "$SSH_CONNECTION" ]; then
+      echo '\u@\h '
+  fi
+
+  # warn when logged in as root user
+  if [ $EUID = 0 ]; then
+      PS1_HOST_COLOR="${RED}"
+      PS1_HOST_INFO='\u '
+  fi
+}
+
+
+# JOB_INFO() {
+#   echo lol
+#   # jobs | cut -c31- | tr '\n' ' '
+# }
 
 # Show notification when the shell was lauched from ranger
 PS1_RANGER_COLOR="\[${BLUE}\]"
@@ -56,9 +66,10 @@ GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_DESCRIBE_STYLE="branch"
 GIT_PS1_SHOWUPSTREAM="verbose git"
 
-check_ssh_keys() {
+ssh_agent_info() {
   if [ -S $SSH_AUTH_SOCK ]; then
     if key_listing=$(ssh-add -l); then
+      echo -en ${PS1_SSH_KEY_COLOR}
       echo "$key_listing" |
         # get key "name" (comment or filename)
         cut -d' ' -f3 | xargs -L1 basename |
@@ -70,9 +81,9 @@ check_ssh_keys() {
   fi
 }
 
-aws_profile(){
+aws_profile_info(){
   if [ -n "$AWS_PROFILE" ]; then
-    echo -e "${BR_RED}AWS:${AWS_PROFILE} "
+    echo -en "${BR_RED}AWS:${AWS_PROFILE} "
   fi
 }
 
@@ -82,9 +93,9 @@ aws_profile(){
 # wrap PS1_USER_COLOR inside an echo call so that it will be evaluated on every command
 # (so that I can dynamically change the color just by changing the variable).
 export PS1="\
-$(aws_profile)\
-\$(echo -e \${PS1_HOST_COLOR})${PS1_HOST_INFO}\
-\$(echo -e \${PS1_SSH_KEY_COLOR})\$(check_ssh_keys)\
+\$(aws_profile_info)\
+\$(host_info)\
+\$(ssh_agent_info)\
 \$(echo -e \${PS1_PATH_COLOR})\w\
 ${PS1_RESET_COLOR}\
 \$(__git_ps1 \"\$GIT_PS1_FMT\")\
