@@ -3,6 +3,7 @@
 : "${FZF_VIM_HISTORY:=$HOME/.local/share/fzf-history}"
 
 export FZF_DEFAULT_OPTS="\
+  --exact \
   --history=$FZF_HISTORY \
   --bind \"ctrl-u:abort+execute(cd ..; echo -n ../; find . | fzf --prompt \`pwd\`/)\"\
   --bind \"ctrl-o:abort+execute(cd \`echo {} | sed 's|~|/home/jan/|'\`; echo -n {}/; find . | fzf --prompt {}/)\""

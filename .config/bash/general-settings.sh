@@ -102,3 +102,9 @@ man() {
 			man "$@"
 }
 
+export WORKON_HOME=$HOME/.virtualenvs
+source /home/jan/.local/bin/virtualenvwrapper.sh
+
+export AWS_CLEAN_PROFILE=nth
+export AWS_MFA_PROFILE=nth-mfa
+export ARN_OF_MFA=arn:aws:iam::787608287205:mfa/jwarchol

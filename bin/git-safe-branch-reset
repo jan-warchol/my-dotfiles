@@ -16,3 +16,4 @@ git checkout --quiet $target_revision 2> \
 git branch --force $current_branch
 echo "Resetting branch '$current_branch' to $target_descr"
 git checkout $current_branch 2>/dev/null
+# git reflog delete HEAD@2
