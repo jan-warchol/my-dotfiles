@@ -83,7 +83,8 @@ ssh_agent_info() {
 
 aws_profile_info(){
   if [ -n "$AWS_PROFILE" ]; then
-    echo -en "${BR_RED}AWS:${AWS_PROFILE} "
+    AMAZON_ORANGE="\x1b[38;2;255;153;0m"  # requires truecolor-enabled terminal
+    echo -en "${AMAZON_ORANGE}AWS:${AWS_PROFILE} "
   fi
 }
 
