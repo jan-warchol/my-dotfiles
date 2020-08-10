@@ -8,6 +8,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 # make autocompletion case-insensitive
 bind "set completion-ignore-case on"
+bind "set bind-tty-special-chars off"
+bind '"\C-x": "fg\n"'
 
 # cd to a dir just by typing its name (requires bash > 4.0), autocorrect typos
 shopt -s autocd
@@ -29,6 +31,7 @@ export ARDUINO_PATH=/usr/local/arduino
 
 _append_path $ARDUINO_PATH
 _append_path $HOME/bin
+_append_path $HOME/bin/blackbox/bin
 _prepend_path $HOME/bin/override
 # apparently user-wide pip install puts stuff there, and I want it to have precedence
 _prepend_path $HOME/.local/bin

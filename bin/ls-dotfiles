@@ -13,4 +13,4 @@
 ) |
   sed "s|$HOME|~|" |
   # my .gitconfig is only a placeholder pointing to .config/git/config
-  grep -v .gitconfig
+  grep -v .gitconfig | sort --unique --reverse
