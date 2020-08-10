@@ -4,6 +4,7 @@
 
 export FZF_DEFAULT_OPTS="\
   --exact \
+  --tiebreak=end,length \
   --history=$FZF_HISTORY \
   --bind \"ctrl-u:abort+execute(cd ..; echo -n ../; find . | fzf --prompt \`pwd\`/)\"\
   --bind \"ctrl-o:abort+execute(cd \`echo {} | sed 's|~|/home/jan/|'\`; echo -n {}/; find . | fzf --prompt {}/)\""
