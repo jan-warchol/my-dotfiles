@@ -2,7 +2,7 @@
 
 set -e
 IFS=$(echo -en "\n\b")
-normal="\e[00m"; bold="\e[1;37m"; green="\e[00;32m"
+normal="\e[00m"; bold="\e[1;97m"; green="\e[00;32m"
 
 REPO_PATH=$(dirname $(readlink --canonicalize "$0"))
 TARGET="$HOME"; PATH_CONFIG="$TARGET/.config/bash/00-paths-override.sh"

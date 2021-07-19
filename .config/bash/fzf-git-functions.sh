@@ -35,7 +35,7 @@ __fzf_git_checkout__() {
   # list local branches before remote ones
   sort --reverse;
   # also include tags and color them yellow
-  git tag | xargs -I{} echo -e "\033[0;33m{}"
+  git tag | xargs -I{} echo -e "${_yellow}{}"
   ) |
   fzf-down --ansi --no-sort --bind 'ctrl-s:toggle-sort' |
   xargs git checkout
